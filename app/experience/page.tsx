@@ -67,50 +67,37 @@ export default function Experience() {
           </FadeIn>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24">
-          <div className="space-y-20">
+          <div className="divide-y divide-white/30">
             {experiences.map((experience, index) => (
               <FadeIn
                 key={index}
                 variants={fadeIn("up", 0.4 + index * 0.1)}
-                className="relative pb-8"
+                className="py-8 first:pt-0 last:pb-0"
               >
-                {index !== experiences.length - 1 && (
-                  <span
-                    className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-muted"
-                    aria-hidden="true"
-                  />
-                )}
-                <div className="relative flex gap-x-3">
-                  <div>
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
-                      <div className="h-2.5 w-2.5 rounded-full bg-primary-foreground" />
-                    </span>
-                  </div>
-                  <div className="flex-auto">
-                    <div className="flex justify-between gap-x-4">
-                      <div>
-                        <h3 className="text-lg font-semibold leading-6">
-                          {experience.position} at {experience.company}
-                        </h3>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                          {experience.description}
-                        </p>
-                      </div>
-                      <p className="whitespace-nowrap text-sm text-muted-foreground">
-                        {experience.period}
+                <div className="flex-auto min-w-0">
+                  <div className="flex flex-col gap-x-4 sm:flex-row sm:justify-between">
+                    <div className="min-w-0">
+                      <h3 className="text-lg font-semibold leading-6 truncate">
+                        {experience.position} at {experience.company}
+                      </h3>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {experience.description}
                       </p>
                     </div>
-                    <div className="mt-4">
-                      <div className="flex flex-wrap gap-2">
-                        {experience.technologies.map((tech) => (
-                          <span
-                            key={tech}
-                            className="inline-flex items-center rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
+                    <p className="mt-1 text-sm text-muted-foreground whitespace-nowrap sm:mt-0">
+                      {experience.period}
+                    </p>
+                  </div>
+                  <div className="mt-4">
+                    <div className="flex flex-wrap gap-2">
+                      {experience.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="inline-flex items-center rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20"
+                        >
+                          {tech}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>

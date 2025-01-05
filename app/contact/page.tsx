@@ -1,8 +1,12 @@
 "use client";
 
 import { Github, Linkedin, Mail, Phone, Twitter } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FadeIn, fadeIn, staggerContainer, StaggerContainer } from "@/components/ui/motion";
+import emailjs from '@emailjs/browser';
+
+// Initialize EmailJS
+emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!);
 
 const socialLinks = [
   {
@@ -38,11 +42,48 @@ export default function Contact() {
     email: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you can implement the form submission logic
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+
+    try {
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        to_name: 'Muhammet Arif',
+        reply_to: formData.email,
+      };
+
+      const result = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        templateParams
+      );
+
+      if (result.status === 200) {
+        setSubmitStatus({
+          type: 'success',
+          message: 'Thank you for your message! I will get back to you soon.',
+        });
+        setFormData({ name: '', email: '', message: '' });
+      }
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      setSubmitStatus({
+        type: 'error',
+        message: 'Sorry, something went wrong. Please try again later.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -113,7 +154,8 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="mt-2 block w-full rounded-md border-0 py-1.5 px-3 bg-background text-foreground shadow-sm ring-1 ring-inset ring-muted focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 transition-shadow duration-200"
+                      disabled={isSubmitting}
+                      className="mt-2 block w-full rounded-md border-0 py-1.5 px-3 bg-background text-foreground shadow-sm ring-1 ring-inset ring-muted focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 transition-shadow duration-200 disabled:opacity-50"
                     />
                   </div>
 
@@ -131,7 +173,8 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="mt-2 block w-full rounded-md border-0 py-1.5 px-3 bg-background text-foreground shadow-sm ring-1 ring-inset ring-muted focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 transition-shadow duration-200"
+                      disabled={isSubmitting}
+                      className="mt-2 block w-full rounded-md border-0 py-1.5 px-3 bg-background text-foreground shadow-sm ring-1 ring-inset ring-muted focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 transition-shadow duration-200 disabled:opacity-50"
                     />
                   </div>
 
@@ -149,15 +192,28 @@ export default function Contact() {
                       value={formData.message}
                       onChange={handleChange}
                       required
-                      className="mt-2 block w-full rounded-md border-0 py-1.5 px-3 bg-background text-foreground shadow-sm ring-1 ring-inset ring-muted focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 transition-shadow duration-200"
+                      disabled={isSubmitting}
+                      className="mt-2 block w-full rounded-md border-0 py-1.5 px-3 bg-background text-foreground shadow-sm ring-1 ring-inset ring-muted focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 transition-shadow duration-200 disabled:opacity-50"
                     />
                   </div>
 
+                  {submitStatus.type && (
+                    <div
+                      className={`p-3 rounded-md ${submitStatus.type === 'success'
+                        ? 'bg-green-500/10 text-green-500'
+                        : 'bg-red-500/10 text-red-500'
+                        }`}
+                    >
+                      {submitStatus.message}
+                    </div>
+                  )}
+
                   <button
                     type="submit"
-                    className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all duration-200"
+                    disabled={isSubmitting}
+                    className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all duration-200 disabled:opacity-50"
                   >
-                    Send Message
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               </div>

@@ -4,6 +4,7 @@ import { Github, Linkedin, Mail, Phone, Twitter } from "lucide-react";
 import { useState } from "react";
 import { FadeIn, fadeIn, staggerContainer, StaggerContainer } from "@/components/ui/motion";
 import emailjs from '@emailjs/browser';
+import useAnalytics from "@/lib/hooks/useAnalytics";
 
 // Initialize EmailJS
 emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!);
@@ -37,6 +38,7 @@ const socialLinks = [
 ];
 
 export default function Contact() {
+  const { trackEvent } = useAnalytics();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -69,6 +71,11 @@ export default function Contact() {
       );
 
       if (result.status === 200) {
+        trackEvent({
+          eventName: "form_submit",
+          category: "contact",
+          label: "contact_form_success",
+        });
         setSubmitStatus({
           type: 'success',
           message: 'Thank you for your message! I will get back to you soon.',
@@ -77,6 +84,12 @@ export default function Contact() {
       }
     } catch (error) {
       console.error('EmailJS error:', error);
+      trackEvent({
+        eventName: "form_submit",
+        category: "contact",
+        label: "contact_form_error",
+        error: String(error),
+      });
       setSubmitStatus({
         type: 'error',
         message: 'Sorry, something went wrong. Please try again later.',
@@ -84,6 +97,14 @@ export default function Contact() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleSocialLinkClick = (name: string) => {
+    trackEvent({
+      eventName: "click_social_link",
+      category: "social",
+      label: name.toLowerCase(),
+    });
   };
 
   const handleChange = (
@@ -141,6 +162,7 @@ export default function Contact() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => handleSocialLinkClick(link.name)}
                       className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors duration-200"
                     >
                       {link.icon}

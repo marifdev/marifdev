@@ -2,6 +2,7 @@
 
 import { ExternalLink, Github } from "lucide-react";
 import { FadeIn, fadeIn, staggerContainer, StaggerContainer } from "@/components/ui/motion";
+import useAnalytics from "@/lib/hooks/useAnalytics";
 
 const projects = [
   {
@@ -29,6 +30,16 @@ const projects = [
 ];
 
 export default function Projects() {
+  const { trackEvent } = useAnalytics();
+
+  const handleProjectLinkClick = (projectTitle: string, linkType: 'github' | 'live') => {
+    trackEvent({
+      eventName: "click_project_link",
+      category: "projects",
+      label: `${projectTitle}_${linkType}`,
+    });
+  };
+
   return (
     <StaggerContainer
       initial="hidden"
@@ -70,6 +81,7 @@ export default function Projects() {
                             href={project.links.github}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => handleProjectLinkClick(project.title, 'github')}
                             className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                           >
                             <Github className="h-5 w-5" />
@@ -80,6 +92,7 @@ export default function Projects() {
                             href={project.links.live}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => handleProjectLinkClick(project.title, 'live')}
                             className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                           >
                             <ExternalLink className="h-5 w-5" />

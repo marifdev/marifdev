@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/ui/navigation";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <main className="relative flex min-h-screen flex-col">
           {children}
         </main>
+        <GoogleAnalytics gaId="G-YBR7SSPKWQ" />
       </body>
     </html>
   );

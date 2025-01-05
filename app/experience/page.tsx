@@ -1,3 +1,7 @@
+"use client";
+
+import { FadeIn, fadeIn, staggerContainer, StaggerContainer } from "@/components/ui/motion";
+
 const experiences = [
   {
     company: "Cell Solutions",
@@ -45,18 +49,31 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <div className="py-24 sm:py-32">
+    <StaggerContainer
+      initial="hidden"
+      animate="show"
+      variants={staggerContainer}
+      className="py-24 sm:py-32"
+    >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Experience</h2>
-          <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            My professional journey as a developer, showcasing various roles and technologies.
-          </p>
+          <FadeIn variants={fadeIn("up", 0.2)}>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Experience</h2>
+          </FadeIn>
+          <FadeIn variants={fadeIn("up", 0.3)}>
+            <p className="mt-6 text-lg leading-8 text-muted-foreground">
+              My professional journey as a developer, showcasing various roles and technologies.
+            </p>
+          </FadeIn>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24">
           <div className="space-y-20">
             {experiences.map((experience, index) => (
-              <div key={index} className="relative pb-8">
+              <FadeIn
+                key={index}
+                variants={fadeIn("up", 0.4 + index * 0.1)}
+                className="relative pb-8"
+              >
                 {index !== experiences.length - 1 && (
                   <span
                     className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-muted"
@@ -97,11 +114,11 @@ export default function Experience() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </FadeIn>
             ))}
           </div>
         </div>
       </div>
-    </div>
+    </StaggerContainer>
   );
 } 

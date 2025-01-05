@@ -1,4 +1,7 @@
+"use client";
+
 import { ExternalLink, Github } from "lucide-react";
+import { FadeIn, fadeIn, staggerContainer, StaggerContainer } from "@/components/ui/motion";
 
 const projects = [
   {
@@ -27,23 +30,33 @@ const projects = [
 
 export default function Projects() {
   return (
-    <div className="py-24 sm:py-32">
+    <StaggerContainer
+      initial="hidden"
+      animate="show"
+      variants={staggerContainer}
+      className="py-24 sm:py-32"
+    >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Projects
-          </h2>
-          <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            A selection of projects I&apos;ve worked on throughout my career
-          </p>
+          <FadeIn variants={fadeIn("up", 0.2)}>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Projects
+            </h2>
+          </FadeIn>
+          <FadeIn variants={fadeIn("up", 0.3)}>
+            <p className="mt-6 text-lg leading-8 text-muted-foreground">
+              A selection of projects I&apos;ve worked on throughout my career
+            </p>
+          </FadeIn>
         </div>
 
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
           <div className="grid grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2">
-            {projects.map((project) => (
-              <div
+            {projects.map((project, index) => (
+              <FadeIn
                 key={project.title}
-                className="flex flex-col overflow-hidden rounded-lg shadow-lg bg-card"
+                variants={fadeIn("up", 0.4 + index * 0.1)}
+                className="flex flex-col overflow-hidden rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300"
               >
                 <div className="flex-1 p-6 flex flex-col justify-between">
                   <div className="flex-1">
@@ -57,7 +70,7 @@ export default function Projects() {
                             href={project.links.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-foreground"
+                            className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                           >
                             <Github className="h-5 w-5" />
                           </a>
@@ -67,7 +80,7 @@ export default function Projects() {
                             href={project.links.live}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-foreground"
+                            className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                           >
                             <ExternalLink className="h-5 w-5" />
                           </a>
@@ -94,11 +107,11 @@ export default function Projects() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </FadeIn>
             ))}
           </div>
         </div>
       </div>
-    </div>
+    </StaggerContainer>
   );
 } 

@@ -1,4 +1,7 @@
+"use client";
+
 import { Briefcase, Code2, Database, Layout } from "lucide-react";
+import { FadeIn, fadeIn, staggerContainer, StaggerContainer } from "@/components/ui/motion";
 
 const skills = [
   {
@@ -25,20 +28,33 @@ const skills = [
 
 export default function About() {
   return (
-    <div className="py-24 sm:py-32">
+    <StaggerContainer
+      initial="hidden"
+      animate="show"
+      variants={staggerContainer}
+      className="py-24 sm:py-32"
+    >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">About Me</h2>
-          <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            I am a Full Stack Developer with experience in various technologies and frameworks.
-            I have worked with international teams and quickly adapt to different technologies
-            and environments. My expertise spans across frontend, backend, and mobile development.
-          </p>
+          <FadeIn variants={fadeIn("up", 0.2)}>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">About Me</h2>
+          </FadeIn>
+          <FadeIn variants={fadeIn("up", 0.3)}>
+            <p className="mt-6 text-lg leading-8 text-muted-foreground">
+              I am a Full Stack Developer with experience in various technologies and frameworks.
+              I have worked with international teams and quickly adapt to different technologies
+              and environments. My expertise spans across frontend, backend, and mobile development.
+            </p>
+          </FadeIn>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
-            {skills.map((skill) => (
-              <div key={skill.category} className="flex flex-col">
+            {skills.map((skill, index) => (
+              <FadeIn
+                key={skill.category}
+                variants={fadeIn("up", 0.4 + index * 0.1)}
+                className="flex flex-col"
+              >
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7">
                   {skill.icon}
                   {skill.category}
@@ -52,11 +68,11 @@ export default function About() {
                     ))}
                   </ul>
                 </dd>
-              </div>
+              </FadeIn>
             ))}
           </dl>
         </div>
       </div>
-    </div>
+    </StaggerContainer>
   );
 } 

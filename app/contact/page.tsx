@@ -1,7 +1,7 @@
 "use client";
 
 import { Github, Linkedin, Mail, Phone, Twitter } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FadeIn, fadeIn, staggerContainer, StaggerContainer } from "@/components/ui/motion";
 import emailjs from '@emailjs/browser';
 

@@ -34,7 +34,7 @@ export default function Projects() {
             Projects
           </h2>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            A selection of projects I've worked on throughout my career
+            A selection of projects I&apos;ve worked on throughout my career
           </p>
         </div>
 

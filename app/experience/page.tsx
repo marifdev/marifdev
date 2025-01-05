@@ -67,7 +67,7 @@ export default function Experience() {
           </FadeIn>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24">
-          <div className="divide-y divide-white/30">
+          <div className="divide-y divide-muted-foreground">
             {experiences.map((experience, index) => (
               <FadeIn
                 key={index}

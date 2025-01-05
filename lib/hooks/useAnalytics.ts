@@ -7,20 +7,31 @@ type EventNames =
   | "form_submit"
   | "click_project_link";
 
-interface AnalyticsEvent {
-  eventName: EventNames;
+type EventParams = {
   category?: string;
   label?: string;
   value?: number;
-  [key: string]: any;
+  error?: string;
+};
+
+interface AnalyticsEvent extends EventParams {
+  eventName: EventNames;
+}
+
+declare global {
+  interface Window {
+    gtag: (
+      command: "event",
+      eventName: string,
+      params: EventParams
+    ) => void;
+  }
 }
 
 const useAnalytics = () => {
   const trackEvent = ({ eventName, ...params }: AnalyticsEvent) => {
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      (window as any).gtag("event", eventName, {
-        ...params,
-      });
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", eventName, params);
     }
   };
 

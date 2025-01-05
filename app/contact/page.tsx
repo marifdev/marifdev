@@ -114,6 +114,21 @@ export default function Contact() {
           </FadeIn>
         </div>
 
+        <FadeIn variants={fadeIn("up", 0.4)}>
+          <div className="mx-auto mt-8 max-w-2xl text-center">
+            <div className="rounded-lg bg-primary/5 p-4">
+              <p className="text-base font-medium">
+                🚀 Available for New Projects
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                I&apos;m currently available for freelance projects and consulting work.
+                Whether you need a new website, mobile app, or technical consultation,
+                I&apos;d love to hear about your project.
+              </p>
+            </div>
+          </div>
+        </FadeIn>
+
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
             <FadeIn variants={fadeIn("right", 0.4)}>

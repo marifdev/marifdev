@@ -79,7 +79,7 @@ export default function Contact() {
               <div className="flex flex-col gap-6">
                 <h3 className="text-lg font-semibold">Connect with me</h3>
                 <div className="flex flex-col gap-4">
-                  {socialLinks.map((link, index) => (
+                  {socialLinks.map((link) => (
                     <a
                       key={link.name}
                       href={link.href}

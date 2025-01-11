@@ -6,6 +6,17 @@ import useAnalytics from "@/lib/hooks/useAnalytics";
 
 const projects = [
   {
+    title: "MyCursorRules",
+    description:
+      "A platform for developers to share and discover Cursor AI customization rules. Users can list their own cursorrules file contents and make them available for other developers to enhance their Cursor AI experience.",
+    technologies: ["Next.js", "React", "TypeScript", "TailwindCSS"],
+    company: "Personal",
+    links: {
+      github: "",
+      live: "https://mycursorrules.com",
+    },
+  },
+  {
     title: "Web3 Dating App",
     description:
       "A dating application built with Flutter and Web3 technologies. The app includes features like user matching, profile management, and blockchain integration.",

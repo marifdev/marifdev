@@ -48,7 +48,7 @@ export default function Home() {
 
           <FadeIn variants={fadeIn("up", 0.4)}>
             <p className="mt-6 text-lg sm:text-xl leading-8 text-muted-foreground max-w-2xl">
-              Full Stack Developer crafting seamless digital experiences with
+              Software Developer crafting seamless digital experiences with
               React, Next.js, React Native, and .NET Technologies. Transforming
               ideas into elegant, high-performance solutions.
             </p>

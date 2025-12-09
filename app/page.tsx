@@ -13,14 +13,6 @@ import useAnalytics from "@/lib/hooks/useAnalytics";
 export default function Home() {
   const { trackEvent } = useAnalytics();
 
-  const handleAboutClick = () => {
-    trackEvent({
-      eventName: "click_about",
-      category: "navigation",
-      label: "about_from_home",
-    });
-  };
-
   const handleContactClick = () => {
     trackEvent({
       eventName: "click_contact",

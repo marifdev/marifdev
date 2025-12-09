@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin, Mail, Phone, Twitter } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 import { useState } from "react";
 import {
   FadeIn,
@@ -139,8 +139,8 @@ export default function Contact() {
           </FadeIn>
           <FadeIn variants={fadeIn("up", 0.3)}>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Have a project in mind or want to collaborate? I'd love to hear
-              from you.
+              Have a project in mind or want to collaborate? I&apos;d love to
+              hear from you.
             </p>
           </FadeIn>
         </div>

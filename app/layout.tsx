@@ -7,9 +7,17 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Muhammet Arif Sarıkaya | Full Stack Developer",
-  description: "Personal website of Muhammet Arif Sarıkaya, a Full Stack Developer specializing in React, Next.js, and .NET technologies.",
-  keywords: ["Full Stack Developer", "React", "Next.js", "TypeScript", "Flutter", ".NET"],
+  title: "Muhammet Arif Sarıkaya | Software Developer",
+  description:
+    "Personal website of Muhammet Arif Sarıkaya, a Software Developer specializing in React, Next.js, React Native, and .NET technologies.",
+  keywords: [
+    "Software Developer",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "React Native",
+    ".NET",
+  ],
 };
 
 export default function RootLayout({
@@ -19,11 +27,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} min-h-screen bg-background antialiased`}>
+      <body
+        className={`${inter.className} min-h-screen bg-background antialiased`}
+      >
         <Navigation />
-        <main className="relative flex min-h-screen flex-col">
-          {children}
-        </main>
+        <main className="relative flex min-h-screen flex-col">{children}</main>
         <GoogleAnalytics gaId="G-YBR7SSPKWQ" />
       </body>
     </html>
